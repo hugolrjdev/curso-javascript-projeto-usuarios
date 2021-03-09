@@ -7,4 +7,10 @@ var password = document.querySelector('#exampleInputPassword');
 var file = document.querySelector('#exampleInputFile');
 var admin = document.querySelector('#exampleInputAdmin');
 
-console.log(gender)
+
+var fields = document.querySelectorAll('#form-user-create [name]');
+
+fields.forEach( (field, index) => {
+    console.log(field, index, field.name, field.id, field.checked, field.value)
+})
+
