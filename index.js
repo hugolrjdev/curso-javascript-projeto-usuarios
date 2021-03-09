@@ -1,3 +1,10 @@
-var inputName = document.querySelector('#exampleInputName');
-inputName.value = "Hugo Lélio";
-inputName.style.color = "blue";
+var name = document.querySelector('#exampleInputName');
+var gender = document.querySelectorAll('#form-user-create [name=gender]:checked');
+var birth = document.querySelector('#exampleInputBirth');
+var country = document.querySelector('#exampleInputCountry');
+var email = document.querySelector('#exampleInputEmail');
+var password = document.querySelector('#exampleInputPassword');
+var file = document.querySelector('#exampleInputFile');
+var admin = document.querySelector('#exampleInputAdmin');
+
+console.log(gender)
