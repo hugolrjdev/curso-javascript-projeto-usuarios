@@ -11,6 +11,14 @@ var admin = document.querySelector('#exampleInputAdmin');
 var fields = document.querySelectorAll('#form-user-create [name]');
 
 fields.forEach( (field, index) => {
-    console.log(field, index, field.name, field.id, field.checked, field.value)
+    if(field.name === "gender"){
+        if(field.checked) {
+            console.log(field.id);
+        }
+    }else {
+        console.log(field.id);
+    };
+
+   // console.log(field, index, field.name, field.id, field.checked, field.value)
 })
 
