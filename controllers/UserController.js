@@ -16,37 +16,45 @@ class UserController {
 
             let values = this.getValues();
 
-            values.photo = ""; // feito para atualizar o campo photo no objeto manualmente
-            this.getPhoto( (resultURL)=>{
+            this.getPhoto().then( (resultURL)=>{
                 values.photo = resultURL;
+                this.addLine(values); //  chama o metodo de adicionar linha passando como parametro o objeto tratado e criado // this.getValues() // pega o objeto tratado e criado
 
-            this.addLine(values); //  chama o metodo de adicionar linha passando como parametro o objeto tratado e criado // this.getValues() // pega o objeto tratado e criado
-            console.log(values)
-            } );
+            }, (err)=>{
+                console.error(err);
+            });
+
         });
 
     } //envia os dados coletados e tratados
 
-    getPhoto(callbackResultURL){
+    getPhoto(){
 
-        let fileReader = new FileReader();
+        return new Promise( (resolve, reject)=>{
 
-        let elements = [...this.formElement.elements].filter(item=>{
+            let fileReader = new FileReader();
 
-             if(item.name === 'photo') {
-                 return item
-            };
+            let elements = [...this.formElement.elements].filter(item=>{
 
-        });// busca o photo dentro de formElement.elements
+                if(item.name === 'photo') {
+                    return item
+                };
 
-        let file = elements[0].files[0];
+            });// busca o photo dentro de formElement.elements
 
-        fileReader.onload = ()=>{
-            callbackResultURL(fileReader.result); //retorna o endereço como base64
-        };//  função callback, verifica quando o arquivo é carregado e retorna a URL em base64 nesse caso
+            let file = elements[0].files[0];
 
-        fileReader.readAsDataURL(file); // valida/carrega a url e tranforma em base64
+            fileReader.onload = ()=>{
+                resolve(fileReader.result); //retorna o endereço como base64
+            };//  função callback, verifica quando o arquivo é carregado e retorna a URL em base64 nesse caso
+            fileReader.onerror = (err) => {
+                reject(err);
+            }
+            fileReader.readAsDataURL(file); // valida/carrega a url e tranforma em base64
 
+        });
+
+        
         
     }// trata o campo photo usando o FileReader Class
 
