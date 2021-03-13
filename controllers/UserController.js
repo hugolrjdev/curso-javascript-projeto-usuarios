@@ -50,7 +50,13 @@ class UserController {
             fileReader.onerror = (err) => {
                 reject(err);
             }
-            fileReader.readAsDataURL(file); // valida/carrega a url e tranforma em base64
+            
+            if(file){
+                fileReader.readAsDataURL(file); // valida/carrega a url e tranforma em base64
+            }else {
+                resolve('dist/img/image-default.jpg');
+            }
+            
 
         });
 
@@ -74,10 +80,10 @@ class UserController {
 
             if(field.name == "admin"){
                 if(field.checked){
-                    user[field.name] = "on";
+                    user[field.name] = "Admin";
 
                 } else{
-                    user[field.name] = "off";
+                    user[field.name] = "User";
                 }
             }
         });
