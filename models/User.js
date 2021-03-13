@@ -9,4 +9,4 @@ class User {
         this.photo = photo;
         this.admin = admin;
     }
-}
+} // o modelo do objeto que vamos criar muito semelhante ao Interface do react
