@@ -1,12 +1,50 @@
 class User {
-    constructor (name, gender, birth, country, email, password, photo, admin) {
-        this.name = name;
-        this.gender = gender;
-        this.birth = birth;
-        this.country = country;
-        this.email = email;
-        this.password = password;
-        this.photo = photo;
-        this.admin = admin;
+    constructor (name, gender, birth, register, country, email, password, photo, admin) {
+        this._name = name;
+        this._gender = gender;
+        this._register = new Date();
+        this._birth = birth;
+        this._country = country;
+        this._email = email;
+        this._password = password;
+        this._photo = photo;
+        this._admin = admin;
     }
+
+
+    //Getters
+    get name(){
+        return this._name;
+    }
+
+    get gender(){
+        return this._gender;
+    }
+
+    get birth(){
+        return this._birth;
+    }
+
+    get register(){
+        return this._register;
+    }
+
+    get country(){
+        return this._country;
+    }
+
+    get email(){
+        return this._email;
+    }
+
+    get password(){
+        return this._password;
+    }
+
+    get admin(){
+        return this._admin;
+    }
+
+
+ 
 } // o modelo do objeto que vamos criar muito semelhante ao Interface do react

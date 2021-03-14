@@ -14,12 +14,17 @@ class UserController {
 
             event.preventDefault();
 
+            let btn = this.formElement.querySelectorAll("[type=submit]");
+
+            btn.disabled = true; // desabilita o botão subumit
+
             let values = this.getValues();
 
             this.getPhoto().then( (resultURL)=>{
                 values.photo = resultURL;
                 this.addLine(values); //  chama o metodo de adicionar linha passando como parametro o objeto tratado e criado // this.getValues() // pega o objeto tratado e criado
-
+                this.formElement.reset(); //limpa o formulario
+                btn.disabled = false; // habilita novamente o button Submit
             }, (err)=>{
                 console.error(err);
             });
@@ -56,12 +61,12 @@ class UserController {
             }else {
                 resolve('dist/img/image-default.jpg');
             }
-            
+
 
         });
 
-        
-        
+
+
     }// trata o campo photo usando o FileReader Class
 
     getValues() {
@@ -80,10 +85,10 @@ class UserController {
 
             if(field.name == "admin"){
                 if(field.checked){
-                    user[field.name] = "Admin";
+                    user[field.name] = "Sim";
 
                 } else{
-                    user[field.name] = "User";
+                    user[field.name] = "Não";
                 }
             }
         });
@@ -104,21 +109,24 @@ class UserController {
 
     addLine(dataUser) {
         //dataUser => são os dados gravados no 'user' depois de serem submetidos pelo botão submit do formulario;
-            this.tableElement.innerHTML=`
-            <tr>
-                <td>
-                    <img src=${dataUser.photo} alt="User Image" class="img-circle img-sm">
-                    </td>
-                    <td>${dataUser.name}</td>
-                    <td>${dataUser.email}</td>
-                    <td>${dataUser.admin}</td>
-                    <td>${dataUser.birth}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
-                        <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
+
+        let tr = document.createElement('tr');
+
+        tr.innerHTML = `
+            <td>
+                <img src=${dataUser.photo} alt="User Image" class="img-circle img-sm">
                 </td>
-            <tr>
-            `;
+                <td>${dataUser.name}</td>
+                <td>${dataUser.email}</td>
+                <td>${dataUser.admin}</td>
+                <td>${dataUser.register}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
+                    <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
+            </td>
+        `; 
+
+            this.tableElement.appendChild(tr);
         }// adiciona o contéudo para a visualização final
 
 }
