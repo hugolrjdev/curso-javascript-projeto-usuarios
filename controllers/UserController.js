@@ -72,8 +72,13 @@ class UserController {
     getValues() {
 
         let user = {};
-
+        let isValid = true;
         [...this.formElement.elements].forEach( (field, index) => {
+
+            if(['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value){
+                field.parentElement.classList.add('has-error');
+                isValid = false;
+            }// verifica qual campo não foi preenchido ou não tem valor 
 
             if(field.name == "gender"){
                 if(field.checked) {
@@ -93,11 +98,16 @@ class UserController {
             }
         });
 
+        if(!isValid){
+            return false;
+        }
+
         //como só usamos uma vez ao invés de usar var objectUser = new User(); pode-se retornar o objeto direto com return
         return new User(
             user.name,
             user.gender,
             user.birth,
+            user.register,
             user.country,
             user.email,
             user.password,
@@ -119,7 +129,7 @@ class UserController {
                 <td>${dataUser.name}</td>
                 <td>${dataUser.email}</td>
                 <td>${dataUser.admin}</td>
-                <td>${dataUser.register}</td>
+                <td>${Utils.dateFormat(dataUser.register)}</td>
                 <td>
                     <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
                     <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
